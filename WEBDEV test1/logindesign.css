@@ -34,6 +34,7 @@ body{
     gap: 0.5rem;
   }
   
+  .form input[type="text"],
   .form input[type="email"],
   .form input[type="password"] {
     border-radius: 0.5rem;
@@ -47,6 +48,7 @@ body{
     outline: 2px solid var(--bg-dark);
   }
   
+  .form input[type="text"]:focus,
   .form input[type="email"]:focus,
   .form input[type="password"]:focus {
     outline: 2px solid var(--clr);
@@ -86,35 +88,5 @@ body{
   
   .span a {
     color: var(--clr);
-  }
-  .modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-  }
-  
-  .modal-content {
-    background-color: #444;
-    margin: 10% auto;
-    padding: 2rem;
-    border-radius: 1rem;
-    width: 90%;
-    max-width: 400px;
-    color: #fff;
-    position: relative;
-  }
-  
-  .close {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 1.5rem;
-    color: #fff;
-    cursor: pointer;
   }
   
