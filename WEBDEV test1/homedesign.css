@@ -248,7 +248,38 @@
     color: #ffa723;
   }
   
-  
+  .modal {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 250px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    z-index: 1000;
+    border-radius: 8px;
+    display: flex;
+  }
+
+  .modal h2 {
+    margin-top: 0;
+    font-size: 18px;
+  }
+
+  .logout-btn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background-color:#1bb4cf;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .logout-btn:hover {
+    background-color: #0f679d;
+  }
   
   
   
