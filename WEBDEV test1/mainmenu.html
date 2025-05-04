@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BoniGlobe Express</title>
+  <link rel="stylesheet" href="homedesign.css">
+</head>
+<body>
+  <header>
+    <div class="left-section">
+      <img src="/IMAGES/turboLogo.png" alt="BoniGlobe Logo">
+    </div>
+
+    <div class="center-section">
+      <div class="logo-text">BoniGlobe Express</div>
+      <div class="tagline">From Our Door to Yours—Fast.</div>
+    </div>
+
+    <div class="hamburger" onclick="toggleMenu()">
+      &#9776;
+    </div>
+
+    <nav class="right-section" id="navMenu">
+      <div id="homebutton" class="dropdown">
+        <a href="mainmenu.html">
+        <button>HOME</button>
+        </a>
+      </div>
+      <div class="dropdown">
+        <button>Information</button>
+        <div class="dropdown-content">
+          <a href=".html" target="_blank">Shipping Fees</a>
+          <a href=".html"target="_blank">Shipping Days</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button>Packages</button>
+        <div class="dropdown-content">
+          <a href=".html" target="_blank">My Packages</a>
+          <a href=".html" target="_blank">Send a Package</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="head">
+      <img id="headprof" src="/IMAGES/profile.png" height="auto" width="30">
+        </a>
+        <h2 id="start">Welcome, </h2>
+  </div>
+
+  <main>
+    <div class="map-background"></div>  
+    
+    <div class="modal">
+      <h2>Welcome!</h2>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+  </main>
+
+  <footer>
+    <div id="footerlogo">
+        <img src="/IMAGES/turboLogo.png" height="100" alt="BoniGlobe Logo">
+        <span class="footer-text">BoniGlobe Express</span>
+        <div class="flex items-center justify-center h-full">
+            <a href="https://www.facebook.com/mr.abbo.505" target="_blank">
+            <button class="facebook">Facebook</button>
+            </a>
+    </div>
+<!--<div class="rating">
+    <input value="5" name="rate" id="star5" type="radio">
+    <label title="text" for="star5"></label>
+    <input value="4" name="rate" id="star4" type="radio">
+    <label title="text" for="star4"></label>
+    <input value="3" name="rate" id="star3" type="radio" checked="">
+    <label title="text" for="star3"></label>
+    <input value="2" name="rate" id="star2" type="radio">
+    <label title="text" for="star2"></label>
+    <input value="1" name="rate" id="star1" type="radio">
+    <label title="text" for="star1"></label>
+  </div>-->
+  </footer>
+  <script>
+    function toggleMenu() {
+      const nav = document.getElementById('navMenu');
+      nav.classList.toggle('show');
+    }
+  </script>
+</body>
+</html>
+
+</body>
+</html>
