@@ -1,0 +1,287 @@
+    @font-face {
+        font-family: font1;
+        src: url("/fonts/bruce-forever-font/BruceForeverRegular-X3jd2.ttf");
+    }
+    @font-face {
+        font-family: font2;
+        src: url("/fonts/toxigenesis/toxigenesis\ bd.otf");
+    }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  a{
+    text-decoration: none;
+  }
+  body {
+    background-image: url(/IMAGES/top-view-truck-boxes.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size:cover ;
+    height: 100%;
+    width: 100%;
+    font-family: Arial, sans-serif;
+    max-height: 500px;
+    background-color: rgba(149, 215, 218, 0.853);
+  }
+  
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    background-color: #333;
+    color: white;
+    flex-wrap: wrap;
+    font-family: font1 ,Arial, sans-serif;
+  }
+  
+  .left-section img {
+    height: 120px;
+  }
+  
+  .center-section {
+    text-align: center;
+    flex: 1;
+    height: auto;
+    font-style: italic;
+  }
+  
+  .logo-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .tagline {
+    font-size: 0.9rem;
+    color: #ccc;
+  }
+  
+  .right-section {
+    display: flex;
+    gap: 20px;
+  }
+  .homebutton{
+    position: relative;
+  }
+  .dropdown {
+    position: relative;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
+  .dropdown:hover{
+    background-color: rgb(102, 102, 102);
+  }
+  #homebutton:active{
+    background-color: #1bb4cf;
+  }
+  
+  .dropdown button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 10px;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 150px;
+    top: 100%;
+    right: 0;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    color: black;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-content a:hover {
+    background-color: #727272;
+  }
+  .dropdown-content a:active{
+    background-color:#1bb4cf;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  .hamburger {
+    display: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: white;
+  }
+  .head{
+    background-color: gray;
+    color: rgb(255, 255, 255);
+    padding: 5px;
+    font-family: font2 ,'Courier New', Courier, monospace;
+    cursor: pointer;
+    }
+    #headprof:active{
+        background-color: rgba(15, 182, 174, 0.71);
+    }
+    #headprof:hover{
+        background-color: #1bb4cf;
+    }
+    #signlog{
+        color: white;
+        text-decoration: none;
+    }
+    #signlog:hover{
+        color: #1bb4cf;
+        text-decoration: none;
+    }
+    #signlog:hover{
+        color: rgba(15, 182, 174, 0.71);
+        text-decoration: none;
+    }
+    #start{
+        text-align:center;
+        font-family: font2 ,Arial, sans-serif;
+        color: white;
+        border: black 1px;
+    
+    }
+    footer{
+        background-color: gray;
+        font-family: font1 ,'Courier New', Courier, monospace;
+        color: white;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        display: flex;
+    }
+    #footerlogo {
+        display: flex;
+        align-items: center;   /* vertically center text with image */
+        gap: 10px;             /* space between image and text */
+        padding: 20px;
+      }
+      
+      .footer-text {
+        font-size: 1.2rem;
+        color: #333; /* or white if on dark background */
+      }
+      /* From Uiverse.io by WhiteNervosa */ 
+    /* From Uiverse.io by WhiteNervosa */ 
+.facebook {
+    font-size: 18px;
+    color: #1bb4cf;
+    font-family: inherit;
+    font-weight: 800;
+    cursor: pointer;
+    position: relative;
+    border: none;
+    background: none;
+    text-transform: uppercase;
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-duration: 400ms;
+    transition-property: color;
+  }
+  
+  .facebook:focus,
+  .facebook:hover {
+    color: #fff;
+  }
+  
+  .facebook:focus:after,
+  .facebook:hover:after {
+    width: 100%;
+    left: 0%;
+  }
+  
+  .facebook:after {
+    content: "";
+    pointer-events: none;
+    bottom: -2px;
+    left: 50%;
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background-color: #fff;
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-duration: 400ms;
+    transition-property: width, left;
+  }
+
+    /* From Uiverse.io by andrew-demchenk0 */ 
+.rating:not(:checked) > input {
+    position: absolute;
+    appearance: none;
+  }
+  
+  .rating:not(:checked) > label {
+    float: right;
+    cursor: pointer;
+    font-size: 30px;
+    color: #666;
+  }
+  
+  .rating:not(:checked) > label:before {
+    content: '★';
+  }
+  
+  .rating > input:checked + label:hover,
+  .rating > input:checked + label:hover ~ label,
+  .rating > input:checked ~ label:hover,
+  .rating > input:checked ~ label:hover ~ label,
+  .rating > label:hover ~ input:checked ~ label {
+    color: #e58e09;
+  }
+  
+  .rating:not(:checked) > label:hover,
+  .rating:not(:checked) > label:hover ~ label {
+    color: #ff9e0b;
+  }
+  
+  .rating > input:checked ~ label {
+    color: #ffa723;
+  }
+  
+  
+  
+  
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .right-section {
+      flex-direction: column;
+      width: 100%;
+      display: none;
+      margin-top: 10px;
+    }
+  
+    .right-section.show {
+      display: flex;
+    }
+  
+    .hamburger {
+      display: block;
+    }
+  
+    .dropdown-content {
+      position: static;
+      box-shadow: none;
+    }
+  
+    .dropdown:hover .dropdown-content {
+      display: none;
+    }
+  
+    .dropdown button:focus + .dropdown-content,
+    .dropdown-content:hover {
+      display: block;
+    }
+
+  }
+  
