@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" x-data="indexPage()">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BoniGlobe Express</title>
+  <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-sky-400 text-white">
+
+  <!-- HEADER -->
+  <header class="flex items-center justify-between p-4 bg-gray-800 shadow-md relative">
+    
+    <!-- Left Logo -->
+    <div class="flex-shrink-0">
+      <img src="/IMAGES/turboLogo.png" alt="BoniGlobe Logo" class="h-12 w-auto">
+    </div>
+
+    <!-- Center Branding -->
+    <div class="text-center absolute left-1/2 transform -translate-x-1/2">
+      <div class="text-2xl font-bold">BoniGlobe Express</div>
+      <div class="text-sm text-gray-300">From Our Door to Yours—Fast.</div>
+    </div>
+
+    <!-- Right Navbar Items -->
+    <nav class="flex items-center space-x-4">
+      <a href="mainmenu.html" class="px-4 py-2 text-white hover:bg-gray-200">Home</a>
+
+      <!-- Information Dropdown (Alpine.js) -->
+      <div x-data="{ openDropdown: false }" class="relative">
+        <button @click="openDropdown = !openDropdown" class="px-4 py-2 text-white hover:bg-gray-200">Information</button>
+        <div x-show="openDropdown" @click.away="openDropdown = false" class="absolute bg-white text-gray-800 shadow-md rounded mt-1 min-w-[10rem] z-10">
+          <a href="loginpage2.html" target="_blank" class="px-4 py-2 hover:bg-gray-100">Shipping Fees</a>
+          <a href="loginpage2.html" target="_blank" class="px-4 py-2 hover:bg-gray-100">Shipping Days</a>
+        </div>
+      </div>
+
+      <!-- Packages Dropdown (Alpine.js) -->
+      <div x-data="{ openDropdown: false }" class="relative">
+        <button @click="openDropdown = !openDropdown" class="px-4 py-2 text-white hover:bg-gray-200">Packages</button>
+        <div x-show="openDropdown" @click.away="openDropdown = false" class="absolute bg-white text-gray-800 shadow-md rounded mt-1 min-w-[10rem] z-10">
+          <a href="loginpage2.html" target="_blank" class="px-4 py-2 hover:bg-gray-100">My Packages</a>
+          <a href="loginpage2.html" target="_blank" class="px-4 py-2 hover:bg-gray-100">Send a Package</a>
+        </div>
+      </div>
+
+      <!-- Profile/Login/Signup (Right) -->
+      <div class="flex items-center space-x-4">
+        <!-- Conditionally render Sign In/Up button based on login status -->
+        <template x-if="!isLoggedIn">
+          <a href="loginpage2.html" class="px-4 py-2 bg-cyan-500 text-white rounded">Sign Up / Login</a>
+        </template>
+        <template x-if="isLoggedIn">
+          <div x-data="{ openProfile: false }" class="relative">
+            <button @click="openProfile = !openProfile" class="flex items-center space-x-2 px-4 py-2 bg-gray-600 text-white rounded">
+              <img src="/IMAGES/profile.png" alt="Profile" class="w-8 h-8 rounded-full">
+              <span>Profile</span>
+            </button>
+            <!-- Profile Dropdown -->
+            <div x-show="openProfile" @click.away="openProfile = false" class="absolute bg-white text-gray-800 shadow-md rounded mt-1 w-40 z-10">
+              <a href="profilepage.html" class="block px-4 py-2 hover:bg-gray-100">View Profile</a>
+              <a href="settings.html" class="block px-4 py-2 hover:bg-gray-100">Settings</a>
+              <a href="#" @click="logout" class="block px-4 py-2 hover:bg-gray-100">Log Out</a>
+
+            </div>
+          </div>
+        </template>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Mobile Navigation -->
+  <div x-show="open" class="lg:hidden bg-gray-700 text-white shadow-md px-4 py-2 space-y-2">
+    <a href="index.html" class="block bg-white text-gray-800 px-4 py-2 rounded">Home</a>
+
+    <div x-data="{ openDropdown: false }">
+      <button @click="openDropdown = !openDropdown" class="w-full text-left bg-white text-gray-800 px-4 py-2 rounded">Information</button>
+      <div x-show="openDropdown" @click.away="openDropdown = false" class="ml-4 mt-1 space-y-1">
+        <a href="loginpage2.html" target="_blank" class="block px-4 py-2 text-sm bg-white text-gray-800 hover:bg-gray-100 rounded">Shipping Fees</a>
+        <a href="loginpage2.html" target="_blank" class="block px-4 py-2 text-sm bg-white text-gray-800 hover:bg-gray-100 rounded">Shipping Days</a>
+      </div>
+    </div>
+
+    <div x-data="{ openDropdown: false }">
+      <button @click="openDropdown = !openDropdown" class="w-full text-left bg-white text-gray-800 px-4 py-2 rounded">Packages</button>
+      <div x-show="openDropdown" @click.away="openDropdown = false" class="ml-4 mt-1 space-y-1">
+        <a href="loginpage2.html" target="_blank" class="block px-4 py-2 text-sm bg-white text-gray-800 hover:bg-gray-100 rounded">My Packages</a>
+        <a href="loginpage2.html" target="_blank" class="block px-4 py-2 text-sm bg-white text-gray-800 hover:bg-gray-100 rounded">Send a Package</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <div class="py-12 text-center">
+    <h1 class="text-3xl font-bold text-gray-800">Welcome to BoniGlobe Express</h1>
+    <p class="mt-4 text-gray-800">Your reliable delivery service from our door to yours.</p>
+  </div>
+
+  <!-- Profile Section below Footer (conditionally rendered if logged in) -->
+  <template x-if="isLoggedIn">
+    <div class="bg-gray-800 py-6 mt-10 text-center">
+      <div class="flex justify-center items-center mt-4 space-x-4">
+        <div class="text-white">
+          <p class="text-sm">You are logged in.</p>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 py-6 mt-10 text-center">
+    <div class="flex flex-col items-center space-y-2">
+      <img src="/IMAGES/turboLogo.png" alt="BoniGlobe Logo" class="h-24">
+      <span class="text-lg font-bold text-white">BoniGlobe Express</span>
+      <a href="https://www.facebook.com/mr.abbo.505" target="_blank">
+        <button class="bg-white text-gray-800 px-4 py-2 rounded hover:bg-gray-200">Facebook</button>
+      </a>
+    </div>
+  </footer>
+
+  <!-- Alpine.js Script -->
+  <script>
+    function indexPage() {
+      return {
+        open: false,
+        isLoggedIn: localStorage.getItem('isLoggedIn') === 'true',
+      };
+    }
+
+    // Simulate login on page load (this could be replaced with a proper authentication system)
+    if (!localStorage.getItem('isLoggedIn')) {
+      // Simulate a logged-in state after redirect (you could set this on login form)
+      localStorage.setItem('isLoggedIn', 'true');
+    }
+
+    function indexPage() {
+    return {
+      open: false,
+      isLoggedIn: localStorage.getItem('isLoggedIn') === 'true',
+
+      // Logout function
+      logout() {
+        // Clear localStorage or sessionStorage
+        localStorage.removeItem('isLoggedIn');
+        // Redirect to the login page
+        window.location.href = 'loginpage2.html'; // Change to your actual login page URL
+      }
+    };
+  }
+
+  // Simulate login on page load (this could be replaced with a proper authentication system)
+  if (!localStorage.getItem('isLoggedIn')) {
+    // If not logged in, redirect to login page
+    window.location.href = 'loginpage2.html'; // Change to your actual login page URL
+  }
+
+    // Check if the user is logged in on page load
+    window.onload = function() {
+    if (!localStorage.getItem('isLoggedIn')) {
+      window.location.href = 'loginpage2.html'; // Redirect to login page if not logged in
+    }
+  }
+  </script>
+
+</body>
+</html>
