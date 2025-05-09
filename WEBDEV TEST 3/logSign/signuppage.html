@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" x-data="signupForm()">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/design/logindesign.css" />
+  <title>BoniGlobe Sign Up</title>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</head>
+<body>
+  <div class="left-section">
+    <img src="/IMAGES/turboLogo.png" alt="BoniGlobe Logo" height="90" />
+  </div>
+
+  <h3 style="color: aqua;">Join BoniGlobe Today</h3>
+  <h1 style="color: white;">Create Your Account</h1>
+
+  <form class="form" @submit.prevent="register">
+    <span class="input-span">
+      <label for="fullname" class="label">Full Name</label>
+      <input type="text" id="fullname" x-model="fullname" required />
+    </span>
+    <span class="input-span">
+      <label for="email" class="label">Email</label>
+      <input type="email" id="email" x-model="email" required />
+    </span>
+    <span class="input-span">
+      <label for="password" class="label">Password</label>
+      <input type="password" id="password" x-model="password" required />
+    </span>
+    <span class="input-span">
+      <label for="confirm_password" class="label">Confirm Password</label>
+      <input type="password" id="confirm_password" x-model="confirmPassword" required />
+    </span>
+    <input class="submit" type="submit" value="Sign Up" />
+  </form>

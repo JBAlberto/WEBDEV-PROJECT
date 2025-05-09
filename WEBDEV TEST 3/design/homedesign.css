@@ -1,0 +1,267 @@
+@font-face {
+  font-family: font1;
+  src: url("/fonts/bruce-forever-font/BruceForeverRegular-X3jd2.ttf");
+}
+@font-face {
+  font-family: font2;
+  src: url("/fonts/toxigenesis/toxigenesis bd.otf");
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+html, body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  background-image: url(/IMAGES/top-view-truck-boxes.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: Arial, sans-serif;
+  background-color: rgba(149, 215, 218, 0.853);
+  flex: 1;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 20px;
+  background-color: #333;
+  color: white;
+  flex-wrap: wrap;
+  font-family: font1, Arial, sans-serif;
+}
+
+.left-section img {
+  height: 120px;
+}
+
+.center-section {
+  text-align: center;
+  flex: 1;
+  font-style: italic;
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.tagline {
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.right-section {
+  display: flex;
+  gap: 20px;
+}
+
+.dropdown {
+  position: relative;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.dropdown:hover {
+  background-color: rgb(102, 102, 102);
+}
+
+#homebutton:active {
+  background-color: #1bb4cf;
+}
+
+.dropdown button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 10px;
+}
+.dropdown-account {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 150px;
+  top: 90%;
+  left: 5;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  z-index: 1;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 150px;
+  top: 100%;
+  right: 0;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 10px 15px;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #727272;
+}
+
+.dropdown-content a:active {
+  background-color: #1bb4cf;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.hamburger {
+  display: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: white;
+}
+
+.head {
+  background-color: gray;
+  color: white;
+  padding: 5px;
+  font-family: font2, 'Courier New', Courier, monospace;
+  justify-content: space-between;
+}
+
+
+#headprof:hover {
+  background-color: #1bb4cf;
+  cursor: pointer;
+}
+
+#signlog {
+  color: white;
+}
+
+#signlog:hover {
+  color: rgba(15, 182, 174, 0.71);
+}
+
+#start {
+  text-align: center;
+  font-family: font2, Arial, sans-serif;
+  color: white;
+}
+
+#footerlogo {
+  background-color: #333;
+  display: flex;
+  align-items:center;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px;
+  margin-top: auto;
+}
+
+.footer-text {
+  font-size: 1.2rem;
+  color: #e5dddd;
+}
+
+.facebook {
+  font-size: 18px;
+  color: #1bb4cf;
+  font-weight: 800;
+  cursor: pointer;
+  position: relative;
+  border: none;
+  background: none;
+  text-transform: uppercase;
+  transition: color 400ms cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.facebook:hover {
+  color: #fff;
+}
+
+.facebook:after {
+  content: "";
+  pointer-events: none;
+  bottom: -2px;
+  left: 50%;
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  background-color: #fff;
+  transition: width 400ms, left 400ms;
+}
+
+.facebook:hover:after {
+  width: 100%;
+  left: 0%;
+}
+
+.calculator {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  width: 300px;
+  justify-self: center;
+}
+label, input, p {
+  display: block;
+  margin-bottom: 10px;
+}
+input {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+}
+.result {
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .right-section {
+    flex-direction: column;
+    width: 100%;
+    display: none;
+    margin-top: 10px;
+  }
+
+  .right-section.show {
+    display: flex;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .dropdown-content {
+    position: static;
+    box-shadow: none;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: none;
+  }
+
+  .dropdown button:focus + .dropdown-content,
+  .dropdown-content:hover {
+    display: block;
+  }
+}
