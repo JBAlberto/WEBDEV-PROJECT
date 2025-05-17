@@ -2,7 +2,7 @@
 $host = 'localhost';
 $db = 'boniglobe_db'; // name database
 $user = 'root';
-$pass = ''; // pass database
+$pass = 'root'; // pass database
 // kinupyak lng ty dati ngem ninayunak json na kasi needed nu usaren ty jy  @submit.prevent="register" ngem mabalin nu awan json na ngem maikkat ty @submit
 $conn = new mysqli($host, $user, $pass, $db);
 if ($conn->connect_error) {

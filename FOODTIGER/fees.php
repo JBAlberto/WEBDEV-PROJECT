@@ -54,7 +54,7 @@ if (!isset($_SESSION['email'])) {
   </header>
 
   <div class="head">
-    <img id="headprof" src="/images/profile.png" width="30" alt="Profile" style="cursor: pointer;">
+    <img id="headprof" src="images/profile.png" width="30" alt="Profile" style="cursor: pointer;">
     <span>My Account: <?php echo htmlspecialchars($_SESSION['email']); ?></span>
     <h2 id="start">Shipping Fees</h2>
   </div>
@@ -106,7 +106,7 @@ if (!isset($_SESSION['email'])) {
   </main>
 
   <div id="footerlogo">
-    <img src="/images/turboLogo.png" height="100" alt="BoniGlobe Logo">
+    <img src="images/turboLogo.png" height="100" alt="BoniGlobe Logo">
     <span class="footer-text">BoniGlobe Express</span>
     <div class="flex items-center justify-center h-full">
       <a href="https://www.facebook.com/mr.abbo.505" target="_blank">

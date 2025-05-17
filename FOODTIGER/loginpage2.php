@@ -1,46 +1,3 @@
-<?php
-session_start(); // store user speccific info or create baro or resume activity
-
-$host = "localhost";
-$user = "root";
-$password = ""; // password jy datbase tayo
-$dbname = "boniglobe_db"; // nagan
-
-$conn = new mysqli($host, $user, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-$error = "";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $conn->real_escape_string($_POST['email']);
-    $password = $_POST['password'];
-
-    $sql = "SELECT * FROM users WHERE email = '$email'";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows == 1) {
-        $row = $result->fetch_assoc();
-        if (password_verify($password, $row['password'])) {
-            $_SESSION['user_id'] = $row['id'];
-            $_SESSION['email'] = $row['email'];
-            
-            // Redirect to mainmenu.php after successful login
-            header("Location: mainmenu.php");
-            exit();
-        } else {
-            $error = "Invalid password.";
-        }
-    } else {
-        $error = "No user found with that email.";
-    }
-}
-
-$conn->close();
-?>
-
 <!DOCTYPE html>
 <html lang="en" x-data="loginForm()">
 
@@ -71,9 +28,7 @@ $conn->close();
       <input type="password" id="password" x-model="password" required />
     </span>
     <input class="submit" type="submit" value="Log in" />
-    <?php if ($error): ?>
-    <p style="color: red;"><?php echo $error; ?></p>
-    <?php endif; ?>
+    <p x-text="message" style="color: red;"></p>
     <span class="span">Don't have an account? <a href="signuppage.php">Register</a> now</span>
   </form>
 
@@ -88,19 +43,21 @@ $conn->close();
         formData.append('password', this.password);
 
         try {
-          const response = await fetch('', {
+          const response = await fetch('loginbackend.php', {
             method: 'POST',
             body: formData
           });
 
-          const result = await response.text();
+          const result = await response.json();
           this.message = result;
 
           // Optional: clear fields on success
-          if (result.includes('successful')) {
+          if (result.success) {
             this.email = '';
             this.password = '';
-            window.location.href = "../main/mainmenu.html";
+            window.location.href = "mainmenu.php";
+          } else if (result.error) {
+            this.message = result.error;
           }
         } catch (error) {
           this.message = 'Error submitting form.';

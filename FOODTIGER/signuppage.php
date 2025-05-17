@@ -36,7 +36,7 @@
     </span>
     <input class="submit" type="submit" value="Sign Up" />
 
-    <span class="span">Already have an account? <a href="signuppage.php">LOGIN</a> now</span>
+    <span class="span">Already have an account? <a href="loginpage2.php">LOGIN</a> now</span>
 
     <p x-text="message" style="color: white;"></p>
   </form>
