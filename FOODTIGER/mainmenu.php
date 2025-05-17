@@ -53,10 +53,16 @@ if (!isset($_SESSION['email'])) {
     </nav>
   </header>
 
-  <div class="head">
-    <img id="headprof" src="images/profile.png" width="30" alt="Profile" style="cursor: pointer;">
+  <div class="head" x-data="{ showLogout: false }">
+    <img id="headprof" src="images/profile.png" width="30" alt="Profile" style="cursor: pointer;"@click="showLogout = !showLogout">
     <span>My Account: <?php echo htmlspecialchars($_SESSION['email']); ?></span>
     <h2 id="start">You are Logged in!</h2>
+
+    <div x-show="showLogout" @click.outside="showLogout = false">
+    <form action="logout.php" method="post">
+      <button type="submit" style="background-color: red; color: white; border: none; padding: 5px 10px; cursor: pointer;">Logout</button>
+    </form>
+  </div>
   </div>
 
   <div id="footerlogo">
