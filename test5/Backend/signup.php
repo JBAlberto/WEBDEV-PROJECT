@@ -38,7 +38,7 @@ $stmt->bind_param("sss", $data['username'], $data['email'], $passwordHash);
 if ($stmt->execute()) {
     echo json_encode(['success' => true, 'message' => 'Signup successful!']);
 } else {
-    echo json_encode(['success' => false, 'message' => 'Error saving user.']);
+    echo json_encode(['success' => false, 'message' => 'Error saving user: ' . $stmt->error]);
 }
 
 $stmt->close();
