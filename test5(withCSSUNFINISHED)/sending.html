@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" x-data="userInfoForm()">
+<head>
+  <meta charset="UTF-8">
+  <title>Send a Package</title>
+  <link rel="stylesheet" href="design/logindesign.css" />
+  <script src="https://unpkg.com/alpinejs" defer></script>
+</head>
+<body>
+  <h2>Send a Package</h2>
+
+  <form @submit.prevent="submitInfo">
+    <div>
+      <label>Name:</label><br />
+      <input type="text" x-model="name" />
+    </div>
+
+    <div>
+      <label>Reciever:</label><br />
+      <input type="text" x-model="contact" />
+    </div>
+
+    <div>
+      <label>Number:</label><br />
+      <input type="text" x-model="number" />
+    </div>
+
+    <div>
+      <label>From:</label><br />
+      <input type="text" x-model="location_1" />
+    </div>
+
+    <div>
+      <label>To:</label><br />
+      <input type="text" x-model="location_2" />
+    </div>
+
+    <div>
+        <label>Package type:</label><br />
+        <label><input type="radio" name="packtype" value="Fragile" x-model="packtype" /> Fragile</label><br />
+        <label><input type="radio" name="packtype" value="Normal" x-model="packtype" /> Normal</label>
+    </div>
+
+    <input type="hidden" x-model="user_id" />
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <div x-text="message" style="margin-top:10px;"></div>
+
+  <script>
+    function userInfoForm() {
+    return {
+  user_id: new URLSearchParams(window.location.search).get('user_id'),
+  name: '',
+  contact: '',
+  number: '',
+  location_1: '',
+  location_2: '',
+  packtype: 'Normal',  // default value
+  message: '',
+
+  submitInfo() {
+    fetch('Backend/sending.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        user_id: this.user_id,
+        name: this.name,
+        contact: this.contact,
+        number: this.number,
+        location_1: this.location_1,
+        location_2: this.location_2,
+        packtype: this.packtype
+      }),
+    })
+    .then(res => res.json())
+    .then(data => {
+      this.message = data.message;
+    })
+    .catch(error => {
+      this.message = 'Failed to save info.';
+      console.error(error);
+    });
+  }
+}
+
+    }
+  </script>
+</body>
+</html>
+

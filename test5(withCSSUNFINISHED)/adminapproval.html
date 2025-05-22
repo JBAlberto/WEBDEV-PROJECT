@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" x-data="packageViewer()" x-init="fetchPackages()">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sent Packages</title>
+  <script src="https://unpkg.com/alpinejs" defer></script>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      border: 1px solid #aaa;
+      padding: 8px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <h2>Sent Packages</h2>
+
+  <template x-if="loading">
+    <p>Loading packages...</p>
+  </template>
+
+  <template x-if="!loading && packages.length === 0">
+    <p>No packages found.</p>
+  </template>
+
+  <template x-if="packages.length > 0">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>User ID</th>
+          <th>Name</th>
+          <th>Receiver</th>
+          <th>Number</th>
+          <th>From</th>
+          <th>To</th>
+          <th>Type</th>
+          <th>Created At</th>
+        </tr>
+      </thead>
+<tbody>
+  <template x-for="pkg in packages" :key="pkg.id">
+    <tr>
+      <td x-text="pkg.id"></td>
+      <td x-text="pkg.user_id"></td>
+      <td x-text="pkg.name"></td>
+      <td x-text="pkg.contact"></td>
+      <td x-text="pkg.number"></td>
+      <td x-text="pkg.location_1"></td>
+      <td x-text="pkg.location_2"></td>
+      <td x-text="pkg.packtype"></td>
+      <td x-text="pkg.created_at"></td>
+      <td>
+        <template x-if="!pkg.approved">
+          <button @click="approvePackage(pkg.id)">Approve</button>
+        </template>
+        <template x-if="pkg.approved">
+          ✅ Approved
+        </template>
+      </td>
+    </tr>
+  </template>
+</tbody>
+
+    </table>
+  </template>
+
+<script>
+function packageViewer() {
+  return {
+    packages: [],
+    loading: true,
+    fetchPackages() {
+      fetch('Backend/fetchpackage.php')
+        .then(res => res.json())
+        .then(data => {
+          this.packages = data;
+          this.loading = false;
+        })
+        .catch(error => {
+          console.error("Error fetching packages:", error);
+          this.loading = false;
+        });
+    },
+ approvePackage(id) {
+  fetch('Backend/adminaproval.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id: id })
+  })
+  .then(res => {
+    if (!res.ok) throw new Error('Network response was not OK');
+    return res.json();
+  })
+  .then(data => {
+    console.log('Approval response:', data);
+    if (data.success) {
+      this.fetchPackages();
+    } else {
+      alert("Approval failed: " + data.message);
+    }
+  })
+  .catch(err => {
+    console.error("Error approving package:", err);
+  });
+}
+
+  }
+}
+</script>
+
+</body>
+</html>

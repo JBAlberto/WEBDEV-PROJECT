@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" x-data="signupForm()">
+<head>
+  <meta charset="UTF-8" />
+  <title>Signup Page</title>
+  <link rel="stylesheet" href="design/logindesign.css" />
+  <script src="https://unpkg.com/alpinejs" defer></script>
+</head>
+<body>
+  <h2>Signup</h2>
+
+  <form @submit.prevent="submitForm">
+    <div>
+      <label>Username:</label><br />
+      <input type="text" x-model="username" />
+      <div x-text="errors.username" style="color:red;"></div>
+    </div>
+
+    <div>
+      <label>Email:</label><br />
+      <input type="email" x-model="email" />
+      <div x-text="errors.email" style="color:red;"></div>
+    </div>
+
+    <div>
+      <label>Password:</label><br />
+      <input type="password" x-model="password" />
+      <div x-text="errors.password" style="color:red;"></div>
+    </div>
+
+    <button type="submit">Sign Up</button>
+    <div x-data="{ link: 'login.html' }">
+    <a x-bind:href="link">Already have an Account?</a>
+</div>
+  </form>
+
+  <div x-text="successMessage" style="color:green; margin-top:10px;"></div>
+
+  <script>
+    function signupForm() {
+      return {
+        username: '',
+        email: '',
+        password: '',
+        errors: {},
+        successMessage: '',
+
+        submitForm() {
+          this.errors = {};
+          this.successMessage = '';
+
+          fetch('Backend/signup.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              username: this.username,
+              email: this.email,
+              password: this.password,
+            }),
+          })
+          .then(res => res.json())
+          .then(data => {
+            if (data.success) {
+              this.successMessage = data.message;
+              this.username = '';
+              this.email = '';
+              this.password = '';
+            } else {
+              this.errors = data.errors || { general: data.message };
+            }
+          })
+          .catch(error => {
+            this.errors.general = 'Something went wrong.';
+            console.error(error);
+          });
+        }
+      }
+    }
+  </script>
+</body>
+</html>
