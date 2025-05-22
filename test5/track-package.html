@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" x-data="tracker()">
+<head>
+  <meta charset="UTF-8" />
+  <title>Track Package</title>
+  <script src="https://unpkg.com/alpinejs" defer></script>
+</head>
+<body>
+  <h2>Track a Package</h2>
+  <input type="text" x-model="trackingNumber" placeholder="Enter tracking number" />
+  <button :disabled="!trackingNumber" @click="track()">Check Status</button>
+
+  <template x-if="error">
+    <p style="color:red;" x-text="error"></p>
+  </template>
+
+  <template x-if="packageFound">
+    <p>Status: <strong x-text="approved ? 'Approved' : 'Not Approved'"></strong></p>
+    
+    <template x-if="!approved">
+      <p>Your package is not approved yet.</p>
+    </template>
+
+    <template x-if="approved && !packagingChosen">
+      <form @submit.prevent="submitPackaging">
+        <p>Choose Packaging:</p>
+        <label><input type="radio" name="packaging" value="Primary" x-model="packagingType" /> Primary</label>
+        <label><input type="radio" name="packaging" value="Secondary" x-model="packagingType" /> Secondary</label>
+        <label><input type="radio" name="packaging" value="Tertiary" x-model="packagingType" /> Tertiary</label>
+        <button type="submit" :disabled="!packagingType">Submit Packaging</button>
+      </form>
+    </template>
+
+    <template x-if="packagingChosen && !deliveryAccepted">
+      <h3>Package Summary</h3>
+      <p><strong>Tracking Number:</strong> <span x-text="packageInfo.tracking_number"></span></p>
+      <p><strong>Name:</strong> <span x-text="packageInfo.name"></span></p>
+      <p><strong>From:</strong> <span x-text="packageInfo.location_1"></span></p>
+      <p><strong>To:</strong> <span x-text="packageInfo.location_2"></span></p>
+      <p><strong>Package Type:</strong> <span x-text="packageInfo.packtype"></span></p>
+      <p><strong>Chosen Packaging:</strong> <span x-text="packagingType"></span></p>
+      <p><strong>Shipping Fee:</strong> $<span x-text="shippingFee.toFixed(2)"></span></p>
+
+      <button @click="acceptDelivery()">Accept Delivery</button>
+    </template>
+
+    <template x-if="deliveryAccepted">
+      <p style="color:green;">We are on the way to pickup your package.</p>
+    </template>
+  </template>
+
+  <script>
+    function tracker() {
+      return {
+        trackingNumber: '',
+        approved: false,
+        packageId: null,
+        packagingType: '',
+        error: '',
+        packageFound: false,
+        packagingChosen: false,
+        deliveryAccepted: false,
+        shippingFee: 0,
+        packageInfo: {},
+
+        track() {
+          this.error = '';
+          this.packageFound = false;
+          this.packagingChosen = false;
+          this.deliveryAccepted = false;
+          fetch(`Backend/track-package.php?tracking_number=${encodeURIComponent(this.trackingNumber)}`)
+            .then(res => res.json())
+            .then(data => {
+              if (data.error) {
+                this.error = data.error;
+              } else {
+                this.packageFound = true;
+                this.approved = data.approved === 1;
+                this.packageId = data.package_id;
+              }
+            })
+            .catch(() => {
+              this.error = 'Failed to fetch status.';
+            });
+        },
+
+        submitPackaging() {
+          fetch('Backend/submit-packaging.php', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+              package_id: this.packageId,
+              packaging_type: this.packagingType
+            })
+          })
+          .then(res => res.json())
+          .then(data => {
+            if (data.success) {
+              this.packagingChosen = true;
+              this.shippingFee = data.shipping_fee;
+              this.packageInfo = data.package_info;
+              this.error = '';
+            } else {
+              this.error = data.error || 'Error submitting packaging';
+            }
+          })
+          .catch(() => {
+            this.error = 'Failed to submit packaging.';
+          });
+        },
+
+        acceptDelivery() {
+          fetch('Backend/accept-delivery.php', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+              package_id: this.packageId
+            })
+          })
+          .then(res => res.json())
+          .then(data => {
+            if (data.success) {
+              this.deliveryAccepted = true;
+              this.error = '';
+            } else {
+              this.error = data.error || 'Error accepting delivery';
+            }
+          })
+          .catch(() => {
+            this.error = 'Failed to accept delivery.';
+          });
+        }
+      }
+    }
+  </script>
+</body>
+</html>

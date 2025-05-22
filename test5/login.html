@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" x-data="loginForm()">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login</title>
+  <script src="https://unpkg.com/alpinejs" defer></script>
+</head>
+<body>
+  <h2>Login</h2>
+
+  <form @submit.prevent="submitLogin">
+    <div>
+      <label>Email:</label><br />
+      <input type="email" x-model="email" />
+      <div x-text="errors.email" style="color:red;"></div>
+    </div>
+
+    <div>
+      <label>Password:</label><br />
+      <input type="password" x-model="password" />
+      <div x-text="errors.password" style="color:red;"></div>
+    </div>
+
+    <button type="submit">Log In</button>
+  </form>
+
+  <div x-text="successMessage" style="color:green; margin-top:10px;"></div>
+  <div x-text="errors.general" style="color:red; margin-top:10px;"></div>
+
+  <script>
+    function loginForm() {
+      return {
+        email: '',
+        password: '',
+        errors: {},
+        successMessage: '',
+
+        submitLogin() {
+          this.errors = {};
+          this.successMessage = '';
+
+          fetch('Backend/login.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email: this.email,
+              password: this.password,
+            }),
+          })
+          .then(res => res.json())
+          .then(data => {
+            if (data.success) {
+              this.successMessage = `Welcome back, ${data.username}!`;
+              setTimeout(() => {
+                window.location.href = 'dashboard.php';
+              }, 1000);
+            } else {
+              this.errors = data.errors || { general: data.message };
+            }
+          })
+          .catch(error => {
+            this.errors.general = 'Something went wrong.';
+            console.error(error);
+          });
+        }
+      }
+    }
+  </script>
+</body>
+</html>
