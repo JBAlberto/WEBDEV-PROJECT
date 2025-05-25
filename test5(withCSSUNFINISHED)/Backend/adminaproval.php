@@ -13,7 +13,7 @@ if (!isset($data['id'])) {
 $host = 'localhost';
 $db   = 'testdbproject';
 $user = 'root';         // adjust as needed
-$pass = '';             // adjust as needed
+$pass = 'root';             // adjust as needed
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";

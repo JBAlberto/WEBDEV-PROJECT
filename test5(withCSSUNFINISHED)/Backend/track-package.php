@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id'])) {
 
 $host = 'localhost';
 $user = 'root';
-$pass = '';
+$pass = 'root';
 $db   = 'testdbproject';
 
 $conn = new mysqli($host, $user, $pass, $db);
@@ -24,7 +24,11 @@ if ($tracking_number === '') {
   exit;
 }
 
-$stmt = $conn->prepare("SELECT id, approved FROM packages WHERE tracking_number = ?");
+$stmt = $conn->prepare("
+  SELECT id, approved, tracking_number, name, location_1, location_2, packtype
+  FROM packages
+  WHERE tracking_number = ?
+");
 if (!$stmt) {
     echo json_encode(['error' => 'Failed to prepare statement']);
     exit;
@@ -38,7 +42,12 @@ $result = $stmt->get_result();
 if ($row = $result->fetch_assoc()) {
   echo json_encode([
     'approved' => (int)$row['approved'],
-    'package_id' => (int)$row['id']
+    'package_id' => (int)$row['id'],
+    'tracking_number' => $row['tracking_number'],
+    'name' => $row['name'],
+    'location_1' => $row['location_1'],
+    'location_2' => $row['location_2'],
+    'packtype' => $row['packtype']
   ]);
 } else {
   echo json_encode(['error' => 'Package not found']);

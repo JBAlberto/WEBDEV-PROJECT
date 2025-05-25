@@ -20,7 +20,7 @@ if (!empty($errors)) {
 // DB connection
 $host = 'localhost';
 $user = 'root';
-$pass = '';
+$pass = 'root';
 $db   = 'testdbproject';
 
 $conn = new mysqli($host, $user, $pass, $db);

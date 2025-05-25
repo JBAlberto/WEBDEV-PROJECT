@@ -6,34 +6,42 @@
   <link rel="stylesheet" href="design/homedesign.css" />
   <script src="https://unpkg.com/alpinejs" defer></script>
 </head>
-<body>
+<body >
   <h2>Track a Package</h2>
   <input type="text" x-model="trackingNumber" placeholder="Enter tracking number" />
   <button :disabled="!trackingNumber" @click="track()">Check Status</button>
-
+  <!-- Added div kase haan nga agprint nu awan template kt agprint lng 1 var kasjay isu na box suna amin ti div-->
   <template x-if="error">
     <p style="color:red;" x-text="error"></p>
   </template>
 
   <template x-if="packageFound">
-    <p>Status: <strong x-text="approved ? 'Approved' : 'Not Approved'"></strong></p>
+    <div>
+      <p>Status: <strong x-text="approved ? 'On the way' : 'Not Approved'"></strong></p>
     
     <template x-if="!approved">
-      <p>Your package is not approved yet.</p>
+      <div>
+        <p>Your package is not approved yet.</p>
+      </div>
+      
     </template>
 
     <template x-if="approved && !packagingChosen">
-      <form @submit.prevent="submitPackaging">
+      <div>
+        <form @submit.prevent="submitPackaging">
         <p>Choose Packaging:</p>
         <label><input type="radio" name="packaging" value="Primary" x-model="packagingType" /> Primary</label>
         <label><input type="radio" name="packaging" value="Secondary" x-model="packagingType" /> Secondary</label>
         <label><input type="radio" name="packaging" value="Tertiary" x-model="packagingType" /> Tertiary</label>
         <button type="submit" :disabled="!packagingType">Submit Packaging</button>
       </form>
+      </div>
+      
     </template>
 
     <template x-if="packagingChosen && !deliveryAccepted">
-      <h3>Package Summary</h3>
+      <div>
+        <h3>Package Summary</h3>
       <p><strong>Tracking Number:</strong> <span x-text="packageInfo.tracking_number"></span></p>
       <p><strong>Name:</strong> <span x-text="packageInfo.name"></span></p>
       <p><strong>From:</strong> <span x-text="packageInfo.location_1"></span></p>
@@ -43,14 +51,22 @@
       <p><strong>Shipping Fee:</strong> $<span x-text="shippingFee.toFixed(2)"></span></p>
 
       <button @click="acceptDelivery()">Accept Delivery</button>
+      </div>
+      
     </template>
 
     <template x-if="deliveryAccepted">
-      <p style="color:green;">We are on the way to pickup your package.</p>
+      <div>
+        <p style="color:green;">We are on the way to pickup your package.</p>
+      </div>
+      
     </template>
+    </div>
+    
   </template>
 
   <script>
+    //ty lng package info ti naikkan jy track() 
     function tracker() {
       return {
         trackingNumber: '',
@@ -78,6 +94,7 @@
                 this.packageFound = true;
                 this.approved = data.approved === 1;
                 this.packageId = data.package_id;
+                this.packageInfo = data;
               }
             })
             .catch(() => {

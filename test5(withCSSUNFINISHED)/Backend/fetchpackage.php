@@ -6,7 +6,7 @@ header("Content-Type: application/json");
 $host = 'localhost';
 $db   = 'testdbproject';
 $user = 'root';         // Adjust as needed
-$pass = '';             // Adjust as needed
+$pass = 'root';             // Adjust as needed
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";

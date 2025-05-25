@@ -15,7 +15,7 @@ if (!$data) {
 $host = 'localhost';
 $db   = 'testdbproject';
 $user = 'root';         // Change as needed
-$pass = '';             // Change as needed
+$pass = 'root';             // Change as needed
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";

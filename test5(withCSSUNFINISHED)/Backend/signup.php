@@ -9,7 +9,7 @@ $errors = [];
 if (empty($data['username'])) $errors['username'] = 'Username is required.';
 if (empty($data['email'])) $errors['email'] = 'Email is required.';
 if (empty($data['password'])) $errors['password'] = 'Password is required.';
-if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) $errors['email'] = 'Invalid email.';
+if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) $errors['email'] = 'Invalid email.'; 
 
 if (!empty($errors)) {
     echo json_encode(['success' => false, 'errors' => $errors]);
@@ -19,7 +19,7 @@ if (!empty($errors)) {
 // Database config
 $host = 'localhost';
 $user = 'root';
-$pass = '';
+$pass = 'root';
 $db   = 'testdbproject';
 
 $conn = new mysqli($host, $user, $pass, $db);
