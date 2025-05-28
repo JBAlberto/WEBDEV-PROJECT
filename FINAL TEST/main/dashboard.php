@@ -10,7 +10,7 @@ if (!isset($_SESSION['user_id'])) {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dashboard - BoniGlobe Express</title>
+  <title>Main Menu - BoniGlobe Express</title>
   <link rel="stylesheet" href="design/dashboard.css">
   <link rel="icon" href="images/turboLogo.png">
   <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
