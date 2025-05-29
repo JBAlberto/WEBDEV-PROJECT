@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" x-data="dashboard()" x-init="init()" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Information - BoniGlobe Express</title>
+  <link rel="icon" href="design/images/turboLogo.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</head>
+<body class="relative min-h-screen bg-gray-900 text-white overflow-x-hidden">
+
+  <!-- Background Map -->
+  <div class="fixed inset-0 -z-10">
+    <iframe 
+      src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d6604.5496882403095!2d120.55946091512126!3d18.05684378012015!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTjCsDAzJzI5LjEiTiAxMjDCsDMzJzM0LjUiRQ!5e0!3m2!1sen!2sph!4v1748432900417!5m2!1sen!2sph"
+      width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+
+  <!-- Header -->
+  <header x-data="{ menuOpen: false, dashOpen: false }" class="bg-black bg-opacity-60 backdrop-blur sticky top-0 z-50 shadow-lg">
+    <div class="max-w-7xl mx-auto flex justify-between items-center p-4">
+      <div class="flex items-center space-x-4">
+        <img src="design/images/turboLogo.png" alt="BoniGlobe Logo" class="h-10" />
+        <div>
+          <h1 class="text-lg font-bold">BoniGlobe Express</h1>
+          <p class="text-sm text-gray-300">From Our Door to Yours—Fast.</p>
+        </div>
+      </div>
+      <div class="md:hidden">
+        <button @click="menuOpen = !menuOpen" class="text-white text-2xl">&#9776;</button>
+      </div>
+      <nav :class="{ 'block': menuOpen, 'hidden': !menuOpen }" class="hidden md:flex space-x-6 items-center">
+        <a href="dashboard.php" class="hover:underline">Home</a>
+        <div class="relative" @click.away="dashOpen = false">
+          <button @click="dashOpen = !dashOpen" class="hover:underline">Dashboard</button>
+          <div x-show="dashOpen" x-transition class="absolute mt-2 bg-white text-black rounded shadow-lg py-2 w-40 z-10">
+            <a href="Mydashboard.php" class="block px-4 py-2 hover:bg-gray-100">My Dashboard</a>
+            <a href="sending.html" class="block px-4 py-2 hover:bg-gray-100">Send a Package</a>
+            <a href="track-package.html" class="block px-4 py-2 hover:bg-gray-100">Track a Package</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Info Section -->
+  <section class="max-w-4xl mx-auto mt-12 bg-white bg-opacity-90 text-gray-900 rounded-xl p-8 shadow-2xl backdrop-blur-lg">
+    <p class="text-lg mb-6">
+      Our team is committed to excellence in every aspect of the delivery process — from pickup to drop-off — ensuring each package is handled with precision, security, and care.
+    </p>
+
+    <h2 class="text-2xl font-semibold mb-4">What Sets Us Apart:</h2>
+    <ul class="list-disc list-inside space-y-2 mb-6">
+      <li><strong>Speed & Reliability:</strong> Fast turnaround and dependable service.</li>
+      <li><strong>Comprehensive Logistics:</strong> Covering primary, secondary, and tertiary delivery needs.</li>
+      <li><strong>Customer-Centered Approach:</strong> Tailored solutions and real-time delivery tracking.</li>
+      <li><strong>Local Expertise:</strong> In-depth knowledge of regional routes and delivery challenges.</li>
+      <li><strong>0 Shipping Fee:</strong> Free Shipping fees without compromising service quality.</li>
+    </ul>
+
+    <p class="mb-6">
+      At BoniGlobe Express, our mission is to simplify logistics and help our clients grow by making delivery faster, easier, and more reliable.
+    </p>
+
+    <h2 class="text-2xl font-semibold mb-4">Our Packaging</h2>
+    <ul class="space-y-4">
+      <li>
+        <h4 class="text-lg font-medium">Primary</h4>
+        <p>Direct Delivery, Deliver the Product as it is</p>
+      </li>
+      <li>
+        <h4 class="text-lg font-medium">Secondary</h4>
+        <p>Secure Packaging, We provide the box or as appropriate</p>
+      </li>
+      <li>
+        <h4 class="text-lg font-medium">Tertiary</h4>
+        <p>Protected Packaging, Most Secure</p>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Footer -->
+</body>
+</html>
