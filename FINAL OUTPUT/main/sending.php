@@ -55,12 +55,12 @@ if (!isset($_SESSION['user_id'])) {
         <label>Name:</label>
         <input type="text" x-model="form.name" required placeholder="Sender's Name"/>
 
-        <label>Receiver:</label>
-        <input type="text" x-model="form.contact"  required placeholder="Reciever's Name"/>
+        <label>Receiver's Name:</label>
+        <input type="text" x-model="form.contact" required placeholder="Receiver's Full Name"/>
 
-        <label>Contact Number:</label>
-        <input type="tel" x-model="form.number" pattern="^09\d{9}$" minlength="11" maxlength="11" placeholder="Ex. 09691234567" required/>
-      
+        <label>Receiver's Contact Number:</label>
+        <input type="tel" x-model="form.number" pattern="^09\d{9}$" minlength="11" maxlength="11" placeholder="e.g. 09691234567" required/>
+
         <label>Sender's Address:</label>
         <input type="text" x-model="form.location_1" required placeholder="Add more details if necessary"/>
 
