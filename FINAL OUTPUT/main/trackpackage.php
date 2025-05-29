@@ -1,5 +1,12 @@
+<?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+  header("Location: login.html");
+  exit;
+}
+?>
 <!DOCTYPE html>
-<html lang="en" x-data="tracker()">
+<html lang="en" x-data="tracker()" x-init="init()">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -8,7 +15,7 @@
   <link rel="icon" href="design/images/turboLogo.png">
   <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
   <style>
-      .map-background {
+    .map-background {
       position: fixed;
       top: 0;
       left: 0;
@@ -40,64 +47,48 @@
       </form>
     </aside>
 
-<main>
-  <div class="map-background">
-    <iframe 
-      src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d6604.5496882403095!2d120.55946091512126!3d18.05684378012015!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTjCsDAzJzI5LjEiTiAxMjDCsDMzJzM0LjUiRQ!5e0!3m2!1sen!2sph!4v1748432900417!5m2!1sen!2sph"
-      width="100%"
-      height="100%"
-      style="border:0;"
-      allowfullscreen=""
-      loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
-  </div>
-    <div class="calculator" style="max-width: 600px; margin: auto;">
-      <h2 style="text-align: center;">Track a Package</h2>
-
-      <div style="margin-bottom: 20px;">
-        <input type="text" x-model="trackingNumber" placeholder="Enter tracking number" class="input" style="width: 100%;" />
-        <button class="submit-btn" :disabled="!trackingNumber" @click="track()" style="margin-top: 10px;">Check Status</button>
+    <main>
+      <div class="map-background">
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d6604.5496882403095!2d120.55946091512126!3d18.05684378012015!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTjCsDAzJzI5LjEiTiAxMjDCsDMzJzM0LjUiRQ!5e0!3m2!1sen!2sph!4v1748432900417!5m2!1sen!2sph"
+          width="100%" height="100%" style="border:0;" allowfullscreen loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
       </div>
-    </div>
+      <div class="calculator" style="max-width: 600px; margin: auto;">
+        <h2 style="text-align: center;">Track a Package</h2>
 
-      <template x-if="error">
-        <p style="color:red;" x-text="error"></p>
-      </template>
+        <div style="margin-bottom: 20px;">
+          <input type="text" x-model="trackingNumber" placeholder="Enter tracking number" class="input" style="width: 100%;" />
+          <button class="submit-btn" :disabled="!trackingNumber" @click="track()" style="margin-top: 10px;">Check Status</button>
+        </div>
 
-<template x-if="packageFound">
-  <div class="tracked">
-    <p>Status:
-      <strong x-text="approved ? 'On the Way' : (pending ? 'Pending Request' : (rejected ? 'Invalid Request' : 'Package Delivered'))"></strong>
-    </p>
+        <template x-if="error">
+          <p style="color:red;" x-text="error"></p>
+        </template>
 
-    <template x-if="approved">
-      <p style="color:green;">Your package is on the way.</p>
-    </template>
+        <template x-if="packageFound">
+          <div class="tracked">
+            <p>Status:
+              <strong x-text="approved ? 'On the Way' : (pending ? 'Pending Request' : (rejected ? 'Invalid Request' : 'Package Delivered'))"></strong>
+            </p>
 
-    <template x-if="pending">
-      <p style="color:orange;">Your package request is still pending.</p>
-    </template>
+            <template x-if="approved"><p style="color:green;">Your package is on the way.</p></template>
+            <template x-if="pending"><p style="color:orange;">Your package request is still pending.</p></template>
+            <template x-if="rejected"><p style="color:red;">Invalid Package request (Package rejected).</p></template>
+            <template x-if="delivered"><p style="color:rgb(83, 161, 197);">Package Delivered.</p></template>
 
-    <template x-if="rejected">
-      <p style="color:red;">Invalid Package request (Package rejected).</p>
-    </template>
-
-    <template x-if="delivered">
-      <p style="color:rgb(83, 161, 197);">Package Delivered.</p>
-    </template>
-
-    <h3>Package Summary</h3>
-    <p><strong>Tracking Number:</strong> <span x-text="packageInfo.tracking_number"></span></p>
-    <p><strong>Name:</strong> <span x-text="packageInfo.name"></span></p>
-    <p><strong>From:</strong> <span x-text="packageInfo.location_1"></span></p>
-    <p><strong>To:</strong> <span x-text="packageInfo.location_2"></span></p>
-    <p><strong>Package Type:</strong> <span x-text="packageInfo.packtype"></span></p>
+            <h3>Package Summary</h3>
+            <p><strong>Tracking Number:</strong> <span x-text="packageInfo.tracking_number"></span></p>
+            <p><strong>Name:</strong> <span x-text="packageInfo.name"></span></p>
+            <p><strong>From:</strong> <span x-text="packageInfo.location_1"></span></p>
+            <p><strong>To:</strong> <span x-text="packageInfo.location_2"></span></p>
+            <p><strong>Package Type:</strong> <span x-text="packageInfo.packtype"></span></p>
+          </div>
+        </template>
+      </div>
+    </main>
   </div>
-</template>
-
-  </div>
-</main>
 
   <div id="footerlogo">
     <img src="design/images/turboLogo.png" height="60" alt="BoniGlobe Logo" />
@@ -107,7 +98,7 @@
 <script>
   function tracker() {
     return {
-      menuOpen: false,
+      username: null,
       trackingNumber: '',
       error: '',
       packageFound: false,
@@ -116,6 +107,19 @@
       pending: false,
       delivered: false,
       packageInfo: {},
+
+      init() {
+        fetch('Backend/session.php')
+          .then(res => res.json())
+          .then(data => {
+            if (data.loggedIn) {
+              this.username = data.username;
+            } else {
+              window.location.href = 'login.html';
+            }
+          })
+          .catch(() => window.location.href = 'login.html');
+      },
 
       track() {
         this.error = '';
@@ -135,9 +139,7 @@
           credentials: 'include'
         })
         .then(res => {
-          if (res.status === 401) {
-            throw new Error('Unauthorized. Please log in.');
-          }
+          if (res.status === 401) throw new Error('Unauthorized. Please log in.');
           return res.json();
         })
         .then(data => {
@@ -149,15 +151,10 @@
           this.packageInfo = data;
           this.packageFound = true;
 
-          if (data.rejected === 1) {
-            this.rejected = true;
-          } else if (data.approved === 1) {
-            this.approved = true;
-          }else if (data.delivered === 1){
-            this.delivered = true;
-          } else {
-            this.pending = true;
-          }
+          if (data.rejected === 1) this.rejected = true;
+          else if (data.approved === 1) this.approved = true;
+          else if (data.delivered === 1) this.delivered = true;
+          else this.pending = true;
         })
         .catch(err => {
           this.error = err.message || 'Failed to fetch package info.';
@@ -166,6 +163,5 @@
     }
   }
 </script>
-
 </body>
 </html>
