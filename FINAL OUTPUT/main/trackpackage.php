@@ -10,7 +10,7 @@ if (!isset($_SESSION['user_id'])) {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Main Menu - BoniGlobe Express</title>
+  <title>Tracking - BoniGlobe Express</title>
   <link rel="stylesheet" href="design/p1.css">
   <link rel="icon" href="design/images/turboLogo.png">
   <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
@@ -28,7 +28,7 @@ if (!isset($_SESSION['user_id'])) {
 </head>
 <body>
   <header>
-    <h1>BoniGlobe Dashboard</h1>
+    <h1>BoniGlobe Express</h1>
     <div class="nav-user">
       <span x-text="username"></span>
       <img src="design/images/profile.png" alt="User">
@@ -73,8 +73,8 @@ if (!isset($_SESSION['user_id'])) {
               <strong x-text="approved ? 'On the Way' : (pending ? 'Pending Request' : (rejected ? 'Invalid Request' : 'Package Delivered'))"></strong>
             </p>
 
-            <template x-if="approved"><p style="color:green;">Your package is on the way.</p></template>
-            <template x-if="pending"><p style="color:orange;">Your package request is still pending.</p></template>
+            <template x-if="approved"><p style="color:green;">Your package is on the way to reciever.</p></template>
+            <template x-if="pending"><p style="color:orange;">A Rider will pick up your Package.</p></template>
             <template x-if="rejected"><p style="color:red;">Invalid Package request (Package rejected).</p></template>
             <template x-if="delivered"><p style="color:rgb(83, 161, 197);">Package Delivered.</p></template>
 

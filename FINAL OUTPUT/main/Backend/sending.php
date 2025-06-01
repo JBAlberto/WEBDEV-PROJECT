@@ -65,7 +65,7 @@ try {
 
     echo json_encode([
         "success" => true,
-        "message" => "Package info saved successfully. Tracking Number: $tracking_number"
+        "message" => "Package info saved successfully. Tracking Number: $tracking_number Please Save!"
     ]);
 } catch (PDOException $e) {
     echo json_encode(["success" => false, "message" => "Database error: " . $e->getMessage()]);
